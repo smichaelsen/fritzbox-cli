@@ -10,6 +10,7 @@ class CallListService
     const FILTER_DEVICE = 'filter_device';
     const FILTER_EXTERNAL_NUMBER = 'filter_external_number';
     const FILTER_LOCAL_NUMBER = 'filter_local_number';
+    const FILTER_TYPE= 'filter_type';
 
     /**
      * @param array $filters
@@ -30,6 +31,9 @@ class CallListService
                 continue;
             }
             if (isset($filters[self::FILTER_LOCAL_NUMBER]) && !self::filterLocalNumber($call, $filters[self::FILTER_LOCAL_NUMBER])) {
+                continue;
+            }
+            if (isset($filters[self::FILTER_TYPE]) && !self::filterType($call, $filters[self::FILTER_TYPE])) {
                 continue;
             }
             $calls[] = $call;
@@ -65,6 +69,16 @@ class CallListService
     protected static function filterLocalNumber(Call $call, $localNumber)
     {
         return $call->getLocalNumber() === $localNumber;
+    }
+
+    /**
+     * @param Call $call
+     * @param int $type
+     * @return bool
+     */
+    protected static function filterType(Call $call, $type)
+    {
+        return $call->getType() === $type;
     }
 
 }
