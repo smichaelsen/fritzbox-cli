@@ -1,0 +1,12 @@
+{
+  "require": {
+    "phplucidframe/console-table": "*",
+    "symfony/console": "*",
+    "vlucas/phpdotenv": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Maschinenraum\\FbApi\\": "src/"
+    }
+  }
+}

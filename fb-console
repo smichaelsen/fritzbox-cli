@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
+$application = new \Symfony\Component\Console\Application();
+$application->add(new \Maschinenraum\FbApi\Command\ListCallsCommand());
+$application->run();
+//$phonebook = \Maschinenraum\FbApi\Service\PhoneBookService::getContacts();
