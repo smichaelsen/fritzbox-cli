@@ -10,6 +10,7 @@ class CallListService
     const FILTER_DEVICE = 'filter_device';
     const FILTER_EXTERNAL_NUMBER = 'filter_external_number';
     const FILTER_LOCAL_NUMBER = 'filter_local_number';
+    const FILTER_SINCE = 'filter_since';
     const FILTER_TYPE= 'filter_type';
 
     /**
@@ -31,6 +32,9 @@ class CallListService
                 continue;
             }
             if (isset($filters[self::FILTER_LOCAL_NUMBER]) && !self::filterLocalNumber($call, $filters[self::FILTER_LOCAL_NUMBER])) {
+                continue;
+            }
+            if (isset($filters[self::FILTER_SINCE]) && !self::filterSince($call, $filters[self::FILTER_SINCE])) {
                 continue;
             }
             if (isset($filters[self::FILTER_TYPE]) && !self::filterType($call, $filters[self::FILTER_TYPE])) {
@@ -79,6 +83,16 @@ class CallListService
     protected static function filterType(Call $call, $type)
     {
         return $call->getType() === $type;
+    }
+
+    /**
+     * @param Call $call
+     * @param int $since
+     * @return bool
+     */
+    protected static function filterSince(Call $call, $since)
+    {
+        return $call->getDate()->getTimestamp() > $since;
     }
 
 }

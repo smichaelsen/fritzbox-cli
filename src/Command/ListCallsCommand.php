@@ -20,6 +20,7 @@ class ListCallsCommand extends Command
         $this->addOption('filter-external-number', 'e', InputOption::VALUE_OPTIONAL, 'Filters calls to match this external number');
         $this->addOption('filter-local-number', 'l', InputOption::VALUE_OPTIONAL, 'Filters calls to match this local number');
         $this->addOption('missed', 'm', InputOption::VALUE_NONE, 'Show only missed calls');
+        $this->addOption('since', 's', InputOption::VALUE_OPTIONAL, 'Since UNIX timestamp');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -41,6 +42,10 @@ class ListCallsCommand extends Command
         if ($input->getOption('filter-device')) {
             $filters[CallListService::FILTER_DEVICE] = $input->getOption('filter-device');
             $title .= ' with device ' . $input->getOption('filter-device');
+        }
+        if ($input->getOption('since')) {
+            $filters[CallListService::FILTER_SINCE] = $input->getOption('since');
+            $title .= ' since ' . date('d.m.Y - H:i', $input->getOption('since'));
         }
         $calls = CallListService::getCalls($filters);
         echo $title . ': ' . "\n\n";

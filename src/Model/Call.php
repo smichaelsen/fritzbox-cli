@@ -151,7 +151,7 @@ class Call
             case self::TYPE_INCOMING:
                 return 'Incoming';
             case self::TYPE_INCOMING_MISSED:
-                return 'Incoming missed';
+                return 'Missed';
             case self::TYPE_OUTGOING;
                 return 'Outgoing';
             default:
